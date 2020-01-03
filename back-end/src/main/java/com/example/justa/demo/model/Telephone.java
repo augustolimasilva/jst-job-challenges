@@ -23,7 +23,7 @@ public class Telephone {
 
     private String carrier;
 
-    private String lineType;
+    private String line_type;
 
     private String number;
 
