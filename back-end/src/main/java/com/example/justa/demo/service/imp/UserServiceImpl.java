@@ -47,6 +47,7 @@ public class UserServiceImpl implements IUserService {
         Optional<User> u = userRepository.findById(id);
 
         if(u.isPresent()){
+            user.setId(id);
             return userRepository.save(user);
         }else{
             throw new CustomException(Constants.USER_NOT_FOUND);
