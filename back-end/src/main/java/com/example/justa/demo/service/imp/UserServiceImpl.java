@@ -81,7 +81,7 @@ public class UserServiceImpl implements IUserService {
 
         if(u.isPresent()){
             userRepository.deleteById(id);
-            return new Response("suceso", "Usuário excluído com sucesso.");
+            return new Response("sucesso", Constants.DELETED_SUCCESSFUL);
         }else{
             throw new CustomException(Constants.USER_NOT_FOUND);
         }
