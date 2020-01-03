@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(url = "http://apilayer.net/api", name = "apilayer")
 public interface ApilayerClient {
 
-    @GetMapping("/validate?acess_key={token}&number={numero}")
+    @GetMapping("/validate?access_key={token}&number={numero}")
     TelephoneDTO getTelephoneValid(@PathVariable(value = "token") String token, @PathVariable(value = "numero") String numero);
 }

@@ -5,4 +5,6 @@ public final class Constants {
     public static final String DELETED_SUCCESSFUL = "Registro deletado com sucesso.";
     public static final String ID_REQUIRED = "É necessário informar o ID.";
     public static final String PROVIDER_NOT_FOUND = "Fornecedor não encontrado.";
+    public static final String TELEPHONE_NOT_VALID = "O telefone informado não é válido.";
+    public static final String CEP_NOT_VALID = "O cep informado não é válido.";
 }

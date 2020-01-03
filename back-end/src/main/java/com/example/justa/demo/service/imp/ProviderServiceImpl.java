@@ -4,7 +4,9 @@ import com.example.justa.demo.exception.CustomException;
 import com.example.justa.demo.model.Address;
 import com.example.justa.demo.model.Provider;
 import com.example.justa.demo.model.Telephone;
+import com.example.justa.demo.model.dto.AddressDTO;
 import com.example.justa.demo.model.dto.ProviderDTO;
+import com.example.justa.demo.model.dto.TelephoneDTO;
 import com.example.justa.demo.repository.IProviderRepository;
 import com.example.justa.demo.service.IProviderService;
 import com.example.justa.demo.util.Constants;
@@ -36,9 +38,29 @@ public class ProviderServiceImpl implements IProviderService {
     public Provider insertProvider(ProviderDTO providerDTO) {
         List<Address> listAddresss = new ArrayList<>();
         List<Telephone> listTelephones = new ArrayList<>();
+        Telephone telephone = new Telephone();
+        Address address = new Address();
 
-        Address address = new ModelMapper().map(addressService.returnDataAddress(providerDTO.getCep()), Address.class);
-        Telephone telephone = new ModelMapper().map(telephoneService.returnTelephone(providerDTO.getTelephone()), Telephone.class);
+        AddressDTO addressDTO = addressService.returnDataAddress(providerDTO.getCep());
+
+        if(addressDTO.getCep() == null){
+            throw new CustomException(Constants.CEP_NOT_VALID);
+        }else{
+            address.setCep(providerDTO.getCep());
+            address.setComplement(addressDTO.getComplemento());
+            address.setDistrict(addressDTO.getBairro());
+            address.setLocation(addressDTO.getLocalidade());
+            address.setUf(addressDTO.getUf());
+            address.setPlace(addressDTO.getLogradouro());
+        }
+
+        TelephoneDTO telephoneDTO = telephoneService.returnTelephone(providerDTO.getTelephone());
+
+        if(telephoneDTO.getValid()){
+            telephone = new ModelMapper().map(telephoneDTO, Telephone.class);
+        }else{
+            throw new CustomException(Constants.TELEPHONE_NOT_VALID);
+        }
 
         listAddresss.add(address);
         listTelephones.add(telephone);
@@ -89,10 +111,6 @@ public class ProviderServiceImpl implements IProviderService {
 
     @Override
     public Provider findById(Long id) {
-        if(Objects.isNull(id)){
-            throw new CustomException(Constants.ID_REQUIRED);
-        }
-
         Optional provider = providerRepository.findById(id);
 
         if(provider.isPresent()){

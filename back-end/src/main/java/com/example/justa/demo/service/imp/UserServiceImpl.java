@@ -95,10 +95,6 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public User findById(Long id) {
-        if(Objects.isNull(id)){
-            throw new CustomException(Constants.ID_REQUIRED);
-        }
-
         Optional user = userRepository.findById(id);
 
         if(user.isPresent()){
