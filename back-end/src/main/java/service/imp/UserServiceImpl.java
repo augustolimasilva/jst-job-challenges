@@ -3,6 +3,7 @@ package service.imp;
 import exception.CustomException;
 import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import repository.UserRepository;
 import service.UserService;
 import util.Constants;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
