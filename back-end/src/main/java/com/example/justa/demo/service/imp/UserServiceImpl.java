@@ -62,7 +62,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public Page<User> getAllUsers(Pageable pageable) {
-        return (Page<User>) userRepository.findAll(pageable);
+        return userRepository.findAll(pageable);
     }
 
     /**
