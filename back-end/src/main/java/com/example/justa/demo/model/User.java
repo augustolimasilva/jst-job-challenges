@@ -1,4 +1,4 @@
-package model;
+package com.example.justa.demo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

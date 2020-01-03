@@ -1,4 +1,4 @@
-package util;
+package com.example.justa.demo.util;
 
 public final class Constants {
     public static final String USER_NOT_FOUND = "Usuário não encontrado.";

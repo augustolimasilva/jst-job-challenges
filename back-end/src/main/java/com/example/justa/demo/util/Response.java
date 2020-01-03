@@ -1,4 +1,4 @@
-package exception;
+package com.example.justa.demo.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomizedResponseException {
-    private String errorMessage;
-    private String statusCode;
+public class Response {
+    private String tipo;
+    private String mensagem;
 }

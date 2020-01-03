@@ -1,4 +1,4 @@
-package exception;
+package com.example.justa.demo.exception;
 
 public class CustomException extends RuntimeException {
 

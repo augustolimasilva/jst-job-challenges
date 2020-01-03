@@ -1,4 +1,4 @@
-package exception;
+package com.example.justa.demo.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
