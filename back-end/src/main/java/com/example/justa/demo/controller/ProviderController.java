@@ -43,13 +43,13 @@ public class ProviderController {
         return new ResponseEntity<>(providerService.getAllProviders(pageable), HttpStatus.OK);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Response> deleteById(@PathVariable Long id){
         return new ResponseEntity<>(providerService.deleteById(id), HttpStatus.OK);
     }
 
-    @GetMapping("{/id}")
-    public ResponseEntity<Provider> findProviderById(@PathVariable Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<Provider> findById(@PathVariable Long id){
         return new ResponseEntity<>(providerService.findById(id), HttpStatus.OK);
     }
 }

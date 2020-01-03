@@ -99,6 +99,12 @@ public class UserServiceImpl implements IUserService {
             throw new CustomException(Constants.ID_REQUIRED);
         }
 
-        return userRepository.findById(id).get();
+        Optional user = userRepository.findById(id);
+
+        if(user.isPresent()){
+            return userRepository.findById(id).get();
+        }else{
+            throw new CustomException(Constants.USER_NOT_FOUND);
+        }
     }
 }

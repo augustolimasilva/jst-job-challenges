@@ -94,6 +94,12 @@ public class ProviderServiceImpl implements IProviderService {
             throw new CustomException(Constants.ID_REQUIRED);
         }
 
-        return providerRepository.findById(id).get();
+        Optional provider = providerRepository.findById(id);
+
+        if(provider.isPresent()){
+            return providerRepository.findById(id).get();
+        }else{
+            throw new CustomException(Constants.PROVIDER_NOT_FOUND);
+        }
     }
 }
