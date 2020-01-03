@@ -30,10 +30,10 @@ public class Provider {
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="provider_id")
     private List<Address> address;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="provider_id")
     private List<Telephone> telephones;
 }

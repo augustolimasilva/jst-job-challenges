@@ -33,5 +33,5 @@ public class Address {
     private String uf;
 
     @JsonIgnore
-    private Long user_id;
+    private Long provider_id;
 }
