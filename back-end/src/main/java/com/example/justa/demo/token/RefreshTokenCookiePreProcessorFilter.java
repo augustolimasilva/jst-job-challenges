@@ -17,6 +17,9 @@ import java.util.Map;
 public class RefreshTokenCookiePreProcessorFilter implements Filter {
 
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {}
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
@@ -35,6 +38,9 @@ public class RefreshTokenCookiePreProcessorFilter implements Filter {
 
         chain.doFilter(req, response);
     }
+
+    @Override
+    public void destroy() {}
 
     static class MyServletRequestWrapper extends HttpServletRequestWrapper{
 

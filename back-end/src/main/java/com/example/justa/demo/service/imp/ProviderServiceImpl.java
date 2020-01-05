@@ -111,10 +111,10 @@ public class ProviderServiceImpl implements IProviderService {
 
     @Override
     public Provider findById(Long id) {
-        Optional provider = providerRepository.findById(id);
+        Optional<Provider> provider = providerRepository.findById(id);
 
         if(provider.isPresent()){
-            return providerRepository.findById(id).get();
+            return provider.get();
         }else{
             throw new CustomException(Constants.PROVIDER_NOT_FOUND);
         }

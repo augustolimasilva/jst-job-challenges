@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +28,7 @@ public class UserDTO {
     @NotNull(message = "{user.email.notnull}")
     @Email(message = "{user.email.valid}")
     private String email;
+
+    @NotNull(message = "{role.description.notnull}")
+    private List<RoleDTO> roles;
 }

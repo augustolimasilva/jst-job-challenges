@@ -16,4 +16,6 @@ public interface IUserService {
     Response deleteById(Long id);
 
     User findById(Long id);
+
+    User loadUserByUsername(String username);
 }

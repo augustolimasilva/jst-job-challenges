@@ -2,23 +2,28 @@ package com.example.justa.demo.service.imp;
 
 import com.example.justa.demo.exception.CustomException;
 import com.example.justa.demo.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+import com.example.justa.demo.model.UserSystem;
 import com.example.justa.demo.repository.IUserRepository;
 import com.example.justa.demo.service.IUserService;
 import com.example.justa.demo.util.Constants;
 import com.example.justa.demo.util.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements IUserService {
 
     @Autowired
     IUserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * @Author augusto.silva
@@ -28,6 +33,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public User insertUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -95,12 +101,41 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public User findById(Long id) {
-        Optional user = userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
 
         if(user.isPresent()){
-            return userRepository.findById(id).get();
+            return user.get();
         }else{
             throw new CustomException(Constants.USER_NOT_FOUND);
         }
+    }
+
+    /***
+     * @Author augusto.silva
+     * Método para carregar o usuário pelo username. Será utilizado para autenticar o usuário.
+     * @param username
+     * @return
+     */
+    @Override
+    public User loadUserByUsername(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if(user.isPresent()){
+            return new UserSystem(user.get(), getRoles(user.get()));
+        }else{
+            throw new CustomException(Constants.USER_NOT_FOUND);
+        }
+    }
+
+    /***
+     * @Author augusto.silva
+     * Método para recuperar as permissões do usuário
+     * @param user
+     * @return
+     */
+    private Collection<SimpleGrantedAuthority> getRoles(User user) {
+        Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+        user.getRoles().forEach(p -> authorities.add(new SimpleGrantedAuthority(p.getDescription().toUpperCase())));
+        return authorities;
     }
 }
