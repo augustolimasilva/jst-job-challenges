@@ -1,0 +1,1 @@
+INSERT INTO role (id, description) values (1, 'ROLE_CADASTRAR_USUARIO');
