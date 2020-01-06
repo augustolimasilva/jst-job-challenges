@@ -11,19 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Autowired
     IUserRepository userRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    //@Autowired
+    //private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * @Author augusto.silva
@@ -33,8 +35,9 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public User insertUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    //    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+      //  return userRepository.save(user);
+        return null;
     }
 
     /**
@@ -117,7 +120,7 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     @Override
-    public User loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String username) {
         Optional<User> user = userRepository.findByUsername(username);
 
         if(user.isPresent()){

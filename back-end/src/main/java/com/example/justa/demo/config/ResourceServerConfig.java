@@ -15,19 +15,22 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
-import javax.annotation.Resource;
-
 @Configuration
 @EnableWebSecurity
 @EnableResourceServer
 public class ResourceServerConfig  extends ResourceServerConfigurerAdapter {
 
-    @Resource(name = "userDetailsService")
+    @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
+    /*@Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }*/
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ROLE");
     }
 
     @Override

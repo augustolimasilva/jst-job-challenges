@@ -43,17 +43,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager);
     }
 
-    @Bean
+   @Bean
     public JwtAccessTokenConverter acessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
         accessTokenConverter.setSigningKey("justabackend");
         return accessTokenConverter;
-    }
+   }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-//		security.checkTokenAccess("isAuthenticated()");
-        security.checkTokenAccess("permitAll()");
+		security.checkTokenAccess("isAuthenticated()");
+//        security.checkTokenAccess("permitAll()");
     }
 
     @Bean
