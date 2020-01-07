@@ -31,7 +31,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret(passwordEncoder.encode("web123"))
                 .scopes("read", "write")
                 .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(60)
+                .accessTokenValiditySeconds(360)
                 .refreshTokenValiditySeconds(3600 * 24);
     }
 
@@ -53,7 +53,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.checkTokenAccess("isAuthenticated()");
-//        security.checkTokenAccess("permitAll()");
     }
 
     @Bean

@@ -34,8 +34,14 @@ public class ProviderServiceImpl implements IProviderService {
     @Autowired
     TelephoneServiceImpl telephoneService;
 
+    /**
+     * @author augusto.silva
+     * Método para incluir um novo Fornecedor.
+     * @param providerDTO
+     * @return
+     */
     @Override
-    public Provider insertProvider(ProviderDTO providerDTO) {
+    public Provider insert(ProviderDTO providerDTO) {
         List<Address> listAddresss = new ArrayList<>();
         List<Telephone> listTelephones = new ArrayList<>();
         Telephone telephone = new Telephone();
@@ -72,8 +78,15 @@ public class ProviderServiceImpl implements IProviderService {
         return providerRepository.save(provider);
     }
 
+    /**
+     * @author augusto.silva
+     * Método para alterar um fornecedor.
+     * @param provider
+     * @param id
+     * @return
+     */
     @Override
-    public Provider alterProvider(Provider provider, Long id) {
+    public Provider alter(Provider provider, Long id) {
         if(Objects.isNull(id)){
             throw new CustomException(Constants.ID_REQUIRED);
         }
@@ -88,11 +101,23 @@ public class ProviderServiceImpl implements IProviderService {
         }
     }
 
+    /**
+     * @author augusto.silva
+     * Método para pesquisar os fornecedores cadastrados.
+     * @param pageable
+     * @return
+     */
     @Override
-    public Page<Provider> getAllProviders(Pageable pageable) {
+    public Page<Provider> findAll(Pageable pageable) {
         return providerRepository.findAll(pageable);
     }
 
+    /**
+     * @author augusto.silva
+     * Método para deletar um fornecedor pelo seu Id.
+     * @param id
+     * @return
+     */
     @Override
     public Response deleteById(Long id) {
         if(Objects.isNull(id)){
@@ -109,6 +134,12 @@ public class ProviderServiceImpl implements IProviderService {
         }
     }
 
+    /**
+     * @author augusto.silva
+     * Método para pesquisar um fornecedor pelo o Id.
+     * @param id
+     * @return
+     */
     @Override
     public Provider findById(Long id) {
         Optional<Provider> provider = providerRepository.findById(id);

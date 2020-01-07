@@ -7,11 +7,11 @@ import com.example.justa.demo.util.Response;
 
 public interface IUserService {
 
-    User insertUser(User user);
+    User insert(User user);
 
-    User alterUser(User user, Long id);
+    User alter(User user, Long id);
 
-    Page<User> getAllUsers(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 
     Response deleteById(Long id);
 

@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -24,31 +24,30 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     @Autowired
     IUserRepository userRepository;
 
-    //@Autowired
-    //private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * @Author augusto.silva
-     * Método para inclusão de um novo usuário
+     * Método para inclusão de um novo usuário.
      * @param user
      * @return
      */
     @Override
-    public User insertUser(User user) {
-    //    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-      //  return userRepository.save(user);
-        return null;
+    public User insert(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
     }
 
     /**
      * @Author augusto.silva
-     * Método para alteração de usuário
+     * Método para alteração de um usuário.
      * @param user
      * @param id
      * @return
      */
     @Override
-    public User alterUser(User user, Long id) {
+    public User alter(User user, Long id) {
         if(Objects.isNull(id)){
             throw new CustomException(Constants.ID_REQUIRED);
         }
@@ -65,18 +64,18 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     /**
      * @Author augusto.silva
-     * Método para retornar todos os usuários cadastrados
+     * Método para pesquisar os usuários cadastrados.
      * @param pageable
      * @return
      */
     @Override
-    public Page<User> getAllUsers(Pageable pageable) {
+    public Page<User> findAll(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
     /**
      * @Author augusto.silva
-     * Método para deletar um usuário
+     * Método para deletar um usuário pelo Id.
      * @param id
      * @return
      */
@@ -98,7 +97,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     /**
      * @Author augusto.silva
-     * Método para retornar um usuário pelo Id.
+     * Método para pesquisar um usuário pelo Id.
      * @param id
      * @return
      */

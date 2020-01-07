@@ -7,11 +7,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IProviderService {
-    Provider insertProvider(ProviderDTO providerDTO);
 
-    Provider alterProvider(Provider provider, Long id);
+    Provider insert(ProviderDTO providerDTO);
 
-    Page<Provider> getAllProviders(Pageable pageable);
+    Provider alter(Provider provider, Long id);
+
+    Page<Provider> findAll(Pageable pageable);
 
     Response deleteById(Long id);
 

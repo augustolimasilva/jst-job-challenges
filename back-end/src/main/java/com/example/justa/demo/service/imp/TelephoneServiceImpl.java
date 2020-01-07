@@ -16,11 +16,23 @@ public class TelephoneServiceImpl implements ITelephoneService {
     @Value("${token.acess.api}")
     private String tokenAcessApi;
 
+    /**
+     * @author augusto.silva
+     * Método para consumir a api da Apilayer, que vai validar se o telefone informado está válido.
+     * @param telephone
+     * @return
+     */
     @Override
     public TelephoneDTO returnTelephone(String telephone) {
         return apilayerClient.getTelephoneValid(tokenAcessApi, this.validTelephoneCel(telephone));
     }
 
+    /**
+     * @author Augusto.silva
+     * Método para verificar se o telefone já está com o +55.
+     * @param telephone
+     * @return
+     */
     private String validTelephoneCel(String telephone){
         return telephone.contains("+55") ? telephone : "+55" + telephone;
     }

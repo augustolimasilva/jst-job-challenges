@@ -34,7 +34,7 @@ public class UserControllerTest {
         userMock.setEmail("augusto_ls17@hotmail.com");
         userMock.setPassword("augusto1993");
 
-        Mockito.when(userService.insertUser(Mockito
+        Mockito.when(userService.insert(Mockito
                 .any(User.class)))
                 .thenReturn(userMock);
 
@@ -54,7 +54,7 @@ public class UserControllerTest {
         userMock.setEmail("augusto_ls17@hotmail.com");
         userMock.setPassword("augusto1993");
 
-        Mockito.when(userService.alterUser(Mockito
+        Mockito.when(userService.alter(Mockito
                 .any(User.class), Mockito.anyLong()))
                 .thenReturn(userMock);
 
